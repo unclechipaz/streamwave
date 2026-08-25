@@ -88,51 +88,51 @@ def verify_session_token(token: str) -> Optional[dict]:
         return None
 
 
-# --- Asset Initialization Helpers ---
+# --- Safe Asset Initialization Helpers (Read-Only System Protection for Vercel) ---
 
 def ensure_video_preview_asset():
-    MEDIA_DIR.mkdir(parents=True, exist_ok=True)
-    if not PREVIEW_VIDEO_FILE.exists() or PREVIEW_VIDEO_FILE.stat().st_size == 0:
-        downloads_dir = Path(r"C:\Users\dell\Downloads")
-        candidate_sources = [
-            downloads_dir / "Use_the_uploaded_StreamWave_lo.mp4",
-            downloads_dir / "Download (28).mp4",
-        ]
-        for src in candidate_sources:
-            if src.exists() and src.stat().st_size > 0:
-                try:
+    try:
+        MEDIA_DIR.mkdir(parents=True, exist_ok=True)
+        if not PREVIEW_VIDEO_FILE.exists() or PREVIEW_VIDEO_FILE.stat().st_size == 0:
+            downloads_dir = Path(r"C:\Users\dell\Downloads")
+            candidate_sources = [
+                downloads_dir / "Use_the_uploaded_StreamWave_lo.mp4",
+                downloads_dir / "Download (28).mp4",
+            ]
+            for src in candidate_sources:
+                if src.exists() and src.stat().st_size > 0:
                     shutil.copyfile(src, PREVIEW_VIDEO_FILE)
                     logger.info(f"Copied StreamWave preview MP4 video from {src} to {PREVIEW_VIDEO_FILE}")
                     break
-                except Exception as e:
-                    logger.error(f"Failed to copy video asset from {src}: {e}")
+    except Exception as e:
+        logger.warning(f"Skipping video asset copy on read-only serverless environment: {e}")
 
 
 def ensure_logo_asset():
-    IMAGES_DIR.mkdir(parents=True, exist_ok=True)
-    if not LOGO_IMAGE_FILE.exists() or LOGO_IMAGE_FILE.stat().st_size == 0:
-        src = BASE_DIR / ".user_uploaded" / "media_1787682860034.png"
-        if not src.exists():
-            src = BASE_DIR / ".user_uploaded" / "media_1787683482860.png"
-        if src.exists() and src.stat().st_size > 0:
-            try:
+    try:
+        IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+        if not LOGO_IMAGE_FILE.exists() or LOGO_IMAGE_FILE.stat().st_size == 0:
+            src = BASE_DIR / ".user_uploaded" / "media_1787682860034.png"
+            if not src.exists():
+                src = BASE_DIR / ".user_uploaded" / "media_1787683482860.png"
+            if src.exists() and src.stat().st_size > 0:
                 shutil.copyfile(src, LOGO_IMAGE_FILE)
                 logger.info(f"Copied StreamWave logo image from {src} to {LOGO_IMAGE_FILE}")
-            except Exception as e:
-                logger.error(f"Failed to copy logo image: {e}")
+    except Exception as e:
+        logger.warning(f"Skipping logo asset copy on read-only serverless environment: {e}")
 
 
 def ensure_favicon_assets():
-    if LOGO_IMAGE_FILE.exists():
-        favicon_png = IMAGES_DIR / "favicon.png"
-        favicon_ico = PUBLIC_DIR / "favicon.ico"
-        try:
+    try:
+        if LOGO_IMAGE_FILE.exists():
+            favicon_png = IMAGES_DIR / "favicon.png"
+            favicon_ico = PUBLIC_DIR / "favicon.ico"
             if not favicon_png.exists():
                 shutil.copyfile(LOGO_IMAGE_FILE, favicon_png)
             if not favicon_ico.exists():
                 shutil.copyfile(LOGO_IMAGE_FILE, favicon_ico)
-        except Exception as e:
-            logger.error(f"Failed to copy favicon: {e}")
+    except Exception as e:
+        logger.warning(f"Skipping favicon asset copy on read-only serverless environment: {e}")
 
 
 ensure_video_preview_asset()
