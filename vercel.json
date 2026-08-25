@@ -8,8 +8,32 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "app.py"
+    },
+    {
+      "src": "/docs",
+      "dest": "app.py"
+    },
+    {
+      "src": "/redoc",
+      "dest": "app.py"
+    },
+    {
+      "src": "/openapi.json",
+      "dest": "app.py"
+    },
+    {
+      "src": "/checkout",
+      "dest": "/checkout.html"
+    },
+    {
+      "src": "/library",
+      "dest": "/library.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }
