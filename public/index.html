@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamWave Entertainment | Zimbabwe’s Stories, Music & Movies</title>
+    
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="landing-body">
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand" aria-label="StreamWave Entertainment Home">
+                <img src="/images/streamwave-logo.png" alt="StreamWave Entertainment Logo" class="brand-logo-img">
+            </a>
+
+            <nav class="nav-links" aria-label="Primary Navigation">
+                <a href="/docs" target="_blank" rel="noopener" class="nav-link developer-link" title="Open API Documentation">
+                    Developer API <span class="ext-icon" aria-hidden="true">↗</span>
+                </a>
+                <a href="/library" class="btn btn-secondary btn-signin-nav" id="nav-signin-btn">Sign In</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Landing Section -->
+    <main class="landing-main">
+        <!-- Full-Height Viewport Centered Hero Section with StreamWave Logo Background Watermark -->
+        <section class="landing-hero" aria-label="StreamWave Membership Introduction">
+            <div class="landing-hero-content">
+                <div class="academic-badge-pill">
+                    <span class="pulse-dot" aria-hidden="true"></span>
+                    <span>Serverless Academic Prototype</span>
+                </div>
+
+                <h1 class="landing-hero-title">Zimbabwe’s stories, music and movies — all in one place.</h1>
+                <p class="landing-hero-subtitle">Stream from US$2.99 per month. Cancel anytime.</p>
+                <p class="landing-hero-instruction">Enter your email address to start your StreamWave membership.</p>
+
+                <form class="landing-start-form" id="start-form" onsubmit="handleStartMembership(event)">
+                    <div class="input-action-group">
+                        <label for="landing-email-input" class="sr-only">Email address</label>
+                        <input type="email" id="landing-email-input" placeholder="Email address" required aria-required="true">
+                        <button type="submit" class="btn btn-primary btn-get-started">
+                            Get Started <span class="chevron" aria-hidden="true">›</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="landing-section benefits-section" aria-label="StreamWave Benefits">
+            <div class="section-container">
+                <h2 class="landing-section-title">Why Join StreamWave?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon" aria-hidden="true">🎬</div>
+                        <h3>Full Catalogue Access</h3>
+                        <p>Stream curated Zimbabwean film titles and hit music tracks from celebrated national artists.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon" aria-hidden="true">🍿</div>
+                        <h3>5-Second Movie Previews</h3>
+                        <p>Watch instant 5-second MP4 demonstration video previews in full 16:9 HD modal view.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon" aria-hidden="true">🎵</div>
+                        <h3>Audio Samples</h3>
+                        <p>Listen to high-fidelity audio samples powered by HTML5 playback and Vercel CDN.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon" aria-hidden="true">📱</div>
+                        <h3>Desktop & Mobile Access</h3>
+                        <p>Optimized dark graphite responsive layout for smart TVs, tablets, desktops and smartphones.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="landing-section how-it-works-section" aria-label="How StreamWave Works">
+            <div class="section-container">
+                <h2 class="landing-section-title">How It Works</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Create Your Account</h3>
+                        <p>Enter your email address to initiate your StreamWave Monthly membership simulation.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Select Payment Method</h3>
+                        <p>Choose from EcoCash, Visa, or MasterCard simulated academic checkout options.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Start Streaming</h3>
+                        <p>Gain instant access to the member library with signed session authorization.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supported Payment Methods Section -->
+        <section class="landing-section payment-methods-section" aria-label="Supported Payment Methods">
+            <div class="section-container text-center">
+                <h2 class="landing-section-title">Supported Payment Simulation Methods</h2>
+                <p class="section-subtitle">Convenient demonstration options tailored for Zimbabwe and international users</p>
+
+                <div class="payment-badges-row">
+                    <div class="payment-badge ecocash-badge">
+                        <span class="badge-icon" aria-hidden="true">📱</span> EcoCash
+                    </div>
+                    <div class="payment-badge visa-badge">
+                        <span class="badge-icon" aria-hidden="true">💳</span> Visa
+                    </div>
+                    <div class="payment-badge mastercard-badge">
+                        <span class="badge-icon" aria-hidden="true">💳</span> MasterCard
+                    </div>
+                </div>
+                
+                <div class="notice-pill">
+                    ⚠️ Academic Payment Simulation — No real money will be charged.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Notice -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="/images/streamwave-logo.png" alt="StreamWave Entertainment Logo" class="footer-logo-img">
+            </div>
+            <p class="footer-disclaimer">
+                <strong>Academic Serverless Prototype</strong> • Built with Python 3.12, FastAPI, and Vercel Serverless Functions.
+                This is a non-commercial academic demonstration for StreamWave Entertainment. Media titles are presented for Zimbabwean cultural demonstration purposes. Payment processing is simulated for assessment verification. No actual financial data or money is collected or transferred.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Check active session on load
+        async function checkSession() {
+            try {
+                const res = await fetch('/api/session');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.authenticated) {
+                        const btn = document.getElementById('nav-signin-btn');
+                        if (btn) {
+                            btn.textContent = 'Go to Library';
+                            btn.href = '/library';
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('Session check error:', e);
+            }
+        }
+
+        function handleStartMembership(e) {
+            e.preventDefault();
+            const input = document.getElementById('landing-email-input');
+            const email = input ? input.value.trim() : '';
+            if (email) {
+                window.location.href = `/checkout?email=${encodeURIComponent(email)}`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', checkSession);
+    </script>
+</body>
+</html>

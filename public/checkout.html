@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamWave Checkout | Simulated Academic Payment</title>
+
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body class="checkout-body">
+    <!-- Navbar Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand" aria-label="StreamWave Entertainment Home">
+                <img src="/images/streamwave-logo.png" alt="StreamWave Entertainment Logo" class="brand-logo-img">
+            </a>
+
+            <nav class="nav-links" aria-label="Primary Navigation">
+                <a href="/" class="nav-link">Cancel</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Checkout Container -->
+    <main class="checkout-main">
+        <div class="checkout-container">
+            <!-- Academic Simulation Warning Banner -->
+            <div class="simulation-alert-banner" role="alert">
+                <span class="alert-icon">⚠️</span>
+                <div class="alert-text">
+                    <strong>ACADEMIC PAYMENT SIMULATION</strong>
+                    <p>No real money will be charged. Do not enter genuine payment information.</p>
+                </div>
+            </div>
+
+            <div class="checkout-grid">
+                <!-- Subscription Summary Box -->
+                <div class="summary-box">
+                    <h2 class="box-title">Order Summary</h2>
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <span class="plan-badge">STUDENT DEMO PLAN</span>
+                            <h3 class="plan-name" id="summary-plan-name">StreamWave Monthly</h3>
+                        </div>
+                        <div class="plan-price" id="summary-plan-price">US$2.99 <span class="price-period">/ month</span></div>
+                        <ul class="plan-benefits-list">
+                            <li><span class="check-icon">✓</span> Full Zimbabwean movie & music catalogue</li>
+                            <li><span class="check-icon">✓</span> 5-second MP4 movie video previews</li>
+                            <li><span class="check-icon">✓</span> High-fidelity demonstration audio samples</li>
+                            <li><span class="check-icon">✓</span> Cancel anytime online</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Payment Method Form Box -->
+                <div class="payment-form-box">
+                    <h2 class="box-title">Select Payment Option</h2>
+
+                    <form id="checkout-form" onsubmit="handlePaymentSubmit(event, false)">
+                        <!-- Customer Email Input -->
+                        <div class="form-group">
+                            <label for="checkout-email" class="form-label">Account Email Address</label>
+                            <input type="email" id="checkout-email" class="form-input" placeholder="name@example.co.zw" required aria-required="true">
+                        </div>
+
+                        <!-- Keyboard Accessible Payment Method Tabs -->
+                        <div class="method-tabs" role="tablist" aria-label="Selectable payment method choices">
+                            <button type="button" class="method-tab active" data-method="ecocash" role="tab" aria-selected="true" aria-controls="interface-ecocash" onclick="selectMethod('ecocash')">
+                                <span class="method-icon" aria-hidden="true">📱</span> EcoCash
+                            </button>
+                            <button type="button" class="method-tab" data-method="visa" role="tab" aria-selected="false" aria-controls="interface-visa" onclick="selectMethod('visa')">
+                                <span class="method-icon" aria-hidden="true">💳</span> Visa
+                            </button>
+                            <button type="button" class="method-tab" data-method="mastercard" role="tab" aria-selected="false" aria-controls="interface-mastercard" onclick="selectMethod('mastercard')">
+                                <span class="method-icon" aria-hidden="true">💳</span> MasterCard
+                            </button>
+                        </div>
+
+                        <!-- EcoCash Interface Container (Only shown when EcoCash selected) -->
+                        <div id="interface-ecocash" class="method-interface" role="tabpanel">
+                            <div class="interface-box">
+                                <span class="demo-tag">Demonstration Mobile Prompt</span>
+                                <label for="ecocash-number" class="form-label">Demonstration Mobile Number</label>
+                                <input type="text" id="ecocash-number" class="form-input" value="077 000 0000" readonly aria-readonly="true">
+                                <div class="step-sequence-list" id="ecocash-steps">
+                                    <div class="step-item"><span class="step-bullet">1</span> USSD payment request sent to mobile handset</div>
+                                    <div class="step-item"><span class="step-bullet">2</span> Waiting for simulated handset PIN approval</div>
+                                    <div class="step-item"><span class="step-bullet">3</span> Transaction verified and approved</div>
+                                </div>
+                                <p class="help-text">Simulated EcoCash USSD push request will be dispatched to this test mobile number.</p>
+                            </div>
+                        </div>
+
+                        <!-- Visa Interface Container (Only shown when Visa selected) -->
+                        <div id="interface-visa" class="method-interface" role="tabpanel" style="display: none;">
+                            <div class="interface-box">
+                                <span class="demo-tag">Demonstration Card Interface</span>
+                                <div class="test-card-preview">
+                                    <div class="card-chip" aria-hidden="true"></div>
+                                    <div class="card-number-display">•••• •••• •••• 4242</div>
+                                    <div class="card-details-row">
+                                        <span>DEMO HOLDER</span>
+                                        <span>12/28</span>
+                                    </div>
+                                </div>
+                                <div class="step-sequence-list" id="visa-steps">
+                                    <div class="step-item"><span class="step-bullet">1</span> Validating demonstration test card credentials</div>
+                                    <div class="step-item"><span class="step-bullet">2</span> Authorizing simulated gateway transaction</div>
+                                    <div class="step-item"><span class="step-bullet">3</span> Payment verified and approved</div>
+                                </div>
+                                <p class="help-text">Predefined test Visa card (ending in 4242). No CVV or real credentials required.</p>
+                            </div>
+                        </div>
+
+                        <!-- MasterCard Interface Container (Only shown when MasterCard selected) -->
+                        <div id="interface-mastercard" class="method-interface" role="tabpanel" style="display: none;">
+                            <div class="interface-box">
+                                <span class="demo-tag">Demonstration Card Interface</span>
+                                <div class="test-card-preview mastercard-theme">
+                                    <div class="card-chip" aria-hidden="true"></div>
+                                    <div class="card-number-display">•••• •••• •••• 4444</div>
+                                    <div class="card-details-row">
+                                        <span>DEMO HOLDER</span>
+                                        <span>12/28</span>
+                                    </div>
+                                </div>
+                                <div class="step-sequence-list" id="mastercard-steps">
+                                    <div class="step-item"><span class="step-bullet">1</span> Validating demonstration test card credentials</div>
+                                    <div class="step-item"><span class="step-bullet">2</span> Authorizing simulated gateway transaction</div>
+                                    <div class="step-item"><span class="step-bullet">3</span> Payment verified and approved</div>
+                                </div>
+                                <p class="help-text">Predefined test MasterCard (ending in 4444). No CVV or real credentials required.</p>
+                            </div>
+                        </div>
+
+                        <!-- ARIA Live Status Overlay for Screen Readers & Visual Feedback -->
+                        <div id="simulation-status" class="simulation-status-box" role="status" aria-live="polite" style="display: none;">
+                            <div class="status-spinner" id="status-spinner"></div>
+                            <div id="simulation-step-text" class="simulation-step-text">Initiating simulated authorization...</div>
+                            <div class="progress-bar-track" id="progress-bar-track">
+                                <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons: Success Simulation vs Test Decline -->
+                        <div class="checkout-actions-group">
+                            <button type="submit" id="submit-pay-btn" class="btn btn-primary btn-checkout-submit">
+                                Simulate Successful Payment ($2.99)
+                            </button>
+                            
+                            <button type="button" id="decline-pay-btn" class="btn btn-secondary btn-decline-test" onclick="handlePaymentSubmit(event, true)">
+                                Test Declined Payment State
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Notice -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="/images/streamwave-logo.png" alt="StreamWave Entertainment Logo" class="footer-logo-img">
+            </div>
+            <p class="footer-disclaimer">
+                <strong>Academic Serverless Prototype</strong> • Payment processing is purely simulated for coursework verification. No actual funds will be debited.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let selectedMethodName = 'ecocash';
+
+        // Pre-fill email from query string if available
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const emailParam = params.get('email');
+            if (emailParam) {
+                const emailInput = document.getElementById('checkout-email');
+                if (emailInput) emailInput.value = emailParam;
+            }
+        });
+
+        function selectMethod(method) {
+            selectedMethodName = method;
+            document.querySelectorAll('.method-tab').forEach(tab => {
+                const isActive = tab.getAttribute('data-method') === method;
+                tab.classList.toggle('active', isActive);
+                tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            document.getElementById('interface-ecocash').style.display = method === 'ecocash' ? 'block' : 'none';
+            document.getElementById('interface-visa').style.display = method === 'visa' ? 'block' : 'none';
+            document.getElementById('interface-mastercard').style.display = method === 'mastercard' ? 'block' : 'none';
+        }
+
+        async function handlePaymentSubmit(e, shouldSimulateDecline = false) {
+            if (e) e.preventDefault();
+
+            const emailInput = document.getElementById('checkout-email');
+            const email = emailInput ? emailInput.value.trim() : '';
+
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                alert('Please enter a valid customer email address.');
+                if (emailInput) emailInput.focus();
+                return;
+            }
+
+            const btn = document.getElementById('submit-pay-btn');
+            const declineBtn = document.getElementById('decline-pay-btn');
+            const statusBox = document.getElementById('simulation-status');
+            const stepText = document.getElementById('simulation-step-text');
+            const progressFill = document.getElementById('progress-bar-fill');
+            const spinner = document.getElementById('status-spinner');
+            const progressTrack = document.getElementById('progress-bar-track');
+
+            // Disable buttons to prevent repeated submissions
+            btn.disabled = true;
+            declineBtn.disabled = true;
+            statusBox.style.display = 'block';
+            statusBox.className = 'simulation-status-box';
+            spinner.style.display = 'block';
+            progressTrack.style.display = 'block';
+
+            const methodTitle = selectedMethodName === 'ecocash' ? 'EcoCash' : (selectedMethodName === 'visa' ? 'Visa' : 'MasterCard');
+
+            // Step Sequence Simulation
+            const steps = shouldSimulateDecline
+                ? [
+                    { msg: `🔒 Validating ${methodTitle} demonstration request...`, pct: '40%' },
+                    { msg: `⚠️ Issuer decline check in progress...`, pct: '80%' }
+                ]
+                : [
+                    { msg: `📱 Requesting ${methodTitle} authorization...`, pct: '30%' },
+                    { msg: `⌛ Authorizing demonstration membership...`, pct: '70%' },
+                    { msg: `✅ ${methodTitle} payment approved!`, pct: '100%' }
+                ];
+
+            // Execute visual step animation
+            for (let i = 0; i < steps.length; i++) {
+                stepText.textContent = steps[i].msg;
+                progressFill.style.width = steps[i].pct;
+                await new Promise(r => setTimeout(r, 550));
+            }
+
+            // Submit ONLY method, plan_id, and optional simulate_decline payload to FastAPI backend
+            try {
+                const res = await fetch('/api/demo-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        method: selectedMethodName,
+                        plan_id: 'streamwave-monthly',
+                        simulate_decline: shouldSimulateDecline
+                    })
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    spinner.style.display = 'none';
+                    statusBox.className = 'simulation-status-box status-success';
+                    stepText.textContent = `✅ Payment Approved! Ref: ${data.tx_ref}. Redirecting to Member Library...`;
+                    
+                    // Brief pause to display transaction reference before redirect
+                    await new Promise(r => setTimeout(r, 1200));
+                    window.location.href = data.redirect_url || '/library';
+                } else {
+                    const err = await res.json();
+                    spinner.style.display = 'none';
+                    progressTrack.style.display = 'none';
+                    statusBox.className = 'simulation-status-box status-declined';
+                    stepText.textContent = `❌ ${err.detail || 'Simulated payment declined.'}`;
+
+                    // Re-enable submission buttons for retry
+                    btn.disabled = false;
+                    declineBtn.disabled = false;
+                }
+            } catch (err) {
+                console.error('Checkout error:', err);
+                spinner.style.display = 'none';
+                progressTrack.style.display = 'none';
+                statusBox.className = 'simulation-status-box status-declined';
+                stepText.textContent = '❌ Network error during simulation. Please try again.';
+                btn.disabled = false;
+                declineBtn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
