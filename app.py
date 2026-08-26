@@ -293,9 +293,10 @@ async def serve_library_page():
     raise HTTPException(status_code=404, detail="Library page not found")
 
 
-# --- Public API Routes ---
+# --- Public API Routes (With Dual Route Aliases for Vercel Serverless Function Compatibility) ---
 
 @app.get("/api/health", response_model=HealthResponse, tags=["Health"])
+@app.get("/health", response_model=HealthResponse, include_in_schema=False)
 async def get_health():
     """Returns platform health status, Vercel Blob configuration status, and serverless environment info."""
     active_blob = bool(os.getenv("STREAMWAVE_BLOB_URL") or os.getenv("VERCEL_BLOB_AUDIO_URL"))
@@ -309,6 +310,7 @@ async def get_health():
 
 
 @app.get("/api/session", response_model=SessionInfoResponse, tags=["Session"])
+@app.get("/session", response_model=SessionInfoResponse, include_in_schema=False)
 async def get_session(request: Request):
     """Checks the active demo-paid member session status from signed HTTP-only cookie."""
     token = request.cookies.get("streamwave_session")
@@ -323,6 +325,7 @@ async def get_session(request: Request):
 
 
 @app.post("/api/demo-payment", response_model=DemoPaymentResponse, status_code=status.HTTP_200_OK, tags=["Session"])
+@app.post("/demo-payment", response_model=DemoPaymentResponse, status_code=status.HTTP_200_OK, include_in_schema=False)
 async def process_demo_payment(payload: DemoPaymentRequest, response: Response):
     """
     Validates simulated payment request (EcoCash, Visa, MasterCard). Supports both
@@ -414,6 +417,7 @@ async def process_demo_payment(payload: DemoPaymentRequest, response: Response):
 
 
 @app.post("/api/logout", tags=["Session"])
+@app.post("/logout", include_in_schema=False)
 async def logout(response: Response):
     """Clears the signed demo-paid member session cookie and logs out."""
     response.delete_cookie(key="streamwave_session", path="/")
@@ -421,6 +425,7 @@ async def logout(response: Response):
 
 
 @app.post("/api/reset-demo", tags=["Session"])
+@app.post("/reset-demo", include_in_schema=False)
 async def reset_demo(response: Response):
     """Assessment control endpoint to reset member session state."""
     response.delete_cookie(key="streamwave_session", path="/")
@@ -434,6 +439,12 @@ async def reset_demo(response: Response):
     response_model=List[MediaItem],
     dependencies=[Depends(verify_paid_session)],
     tags=["Media"],
+)
+@app.get(
+    "/media",
+    response_model=List[MediaItem],
+    dependencies=[Depends(verify_paid_session)],
+    include_in_schema=False,
 )
 async def get_media(
     query: Optional[str] = Query(default=None, max_length=100),
@@ -472,6 +483,12 @@ async def get_media(
     dependencies=[Depends(verify_paid_session)],
     tags=["Media"],
 )
+@app.get(
+    "/media/{media_id}",
+    response_model=MediaItem,
+    dependencies=[Depends(verify_paid_session)],
+    include_in_schema=False,
+)
 async def get_media_detail(media_id: str = PathParam(..., max_length=50)):
     """Protected Endpoint: Retrieves single media item detail by ID for demo-paid members."""
     catalogue = load_media_catalogue()
@@ -490,6 +507,13 @@ async def get_media_detail(media_id: str = PathParam(..., max_length=50)):
     status_code=status.HTTP_201_CREATED,
     dependencies=[Depends(verify_paid_session)],
     tags=["Playback Events"],
+)
+@app.post(
+    "/play-events",
+    response_model=PlayEventResponse,
+    status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(verify_paid_session)],
+    include_in_schema=False,
 )
 async def create_play_event(payload: PlayEventRequest):
     """Protected Endpoint: Logs structured playback telemetry event for demo-paid members."""
