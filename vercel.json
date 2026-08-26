@@ -1,39 +1,28 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "app.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "app.py"
+      "source": "/checkout",
+      "destination": "/checkout.html"
     },
     {
-      "src": "/docs",
-      "dest": "app.py"
+      "source": "/library",
+      "destination": "/library.html"
     },
     {
-      "src": "/redoc",
-      "dest": "app.py"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/openapi.json",
-      "dest": "app.py"
+      "source": "/docs",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/checkout",
-      "dest": "/checkout.html"
+      "source": "/redoc",
+      "destination": "/api/index.py"
     },
     {
-      "src": "/library",
-      "dest": "/library.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/openapi.json",
+      "destination": "/api/index.py"
     }
   ]
 }
