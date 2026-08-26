@@ -264,6 +264,32 @@ async def add_security_headers(request: Request, call_next):
     return response
 
 
+# Path Normalization Middleware for Vercel Serverless Function Routing
+@app.middleware("http")
+async def normalize_api_path(request: Request, call_next):
+    raw_path = request.url.path
+    if "demo-payment" in raw_path:
+        request.scope["path"] = "/api/demo-payment"
+    elif "play-events" in raw_path:
+        request.scope["path"] = "/api/play-events"
+    elif "reset-demo" in raw_path:
+        request.scope["path"] = "/api/reset-demo"
+    elif "logout" in raw_path:
+        request.scope["path"] = "/api/logout"
+    elif "session" in raw_path:
+        request.scope["path"] = "/api/session"
+    elif "health" in raw_path:
+        request.scope["path"] = "/api/health"
+    elif "media/" in raw_path:
+        media_id = raw_path.split("media/")[-1]
+        request.scope["path"] = f"/api/media/{media_id}"
+    elif "media" in raw_path and not raw_path.endswith(".png") and not raw_path.endswith(".mp4") and not raw_path.endswith(".wav"):
+        request.scope["path"] = "/api/media"
+    
+    response = await call_next(request)
+    return response
+
+
 # --- Public HTML Page Routes ---
 
 @app.get("/", response_class=FileResponse, include_in_schema=False)
