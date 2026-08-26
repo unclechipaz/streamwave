@@ -58,31 +58,80 @@
             </div>
         </section>
 
-        <!-- Benefits Section -->
+        <!-- Refined Benefits Section: Entertainment That Feels Like Home -->
         <section class="landing-section benefits-section" aria-label="StreamWave Benefits">
             <div class="section-container">
-                <h2 class="landing-section-title">Why Join StreamWave?</h2>
+                <h2 class="landing-section-title">Entertainment That Feels Like Home</h2>
+                <p class="section-subtitle">Discover Zimbabwean films, music and creative stories in one beautifully simple streaming experience.</p>
+
                 <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <div class="benefit-icon" aria-hidden="true">🎬</div>
-                        <h3>Full Catalogue Access</h3>
-                        <p>Stream curated Zimbabwean film titles and hit music tracks from celebrated national artists.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon" aria-hidden="true">🍿</div>
-                        <h3>5-Second Movie Previews</h3>
-                        <p>Watch instant 5-second MP4 demonstration video previews in full 16:9 HD modal view.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon" aria-hidden="true">🎵</div>
-                        <h3>Audio Samples</h3>
-                        <p>Listen to high-fidelity audio samples powered by HTML5 playback and Vercel CDN.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon" aria-hidden="true">📱</div>
-                        <h3>Desktop & Mobile Access</h3>
-                        <p>Optimized dark graphite responsive layout for smart TVs, tablets, desktops and smartphones.</p>
-                    </div>
+                    <!-- Card 1 -->
+                    <article class="benefit-card">
+                        <div class="card-icon-container">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="benefit-svg-icon" aria-hidden="true">
+                                <rect x="2" y="2" width="20" height="20" rx="2.5"/>
+                                <line x1="7" y1="2" x2="7" y2="22"/>
+                                <line x1="17" y1="2" x2="17" y2="22"/>
+                                <line x1="2" y1="12" x2="22" y2="12"/>
+                                <line x1="2" y1="7" x2="7" y2="7"/>
+                                <line x1="2" y1="17" x2="7" y2="17"/>
+                                <line x1="17" y1="17" x2="22" y2="17"/>
+                                <line x1="17" y1="7" x2="22" y2="7"/>
+                            </svg>
+                        </div>
+                        <h3>Zimbabwean Stories, Centre Stage</h3>
+                        <p>Explore a curated collection of local films and music celebrating Zimbabwe’s established and emerging creative talent.</p>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="benefit-card">
+                        <div class="card-icon-container">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="benefit-svg-icon" aria-hidden="true">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                <line x1="11" y1="8" x2="11" y2="14"/>
+                                <line x1="8" y1="11" x2="14" y2="11"/>
+                            </svg>
+                        </div>
+                        <h3>Find Your Next Favourite</h3>
+                        <p>Search by title, artist or genre, preview films and sample tracks before deciding what to enjoy.</p>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="benefit-card">
+                        <div class="card-icon-container">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="benefit-svg-icon" aria-hidden="true">
+                                <rect x="2" y="3" width="14" height="11" rx="1.5"/>
+                                <path d="M6 18h6"/>
+                                <path d="M9 14v4"/>
+                                <rect x="13" y="8" width="9" height="13" rx="1.5"/>
+                                <line x1="16" y1="18" x2="19" y2="18"/>
+                            </svg>
+                        </div>
+                        <h3>Enjoy It on Your Screen</h3>
+                        <p>Browse and play content through a responsive experience designed for smartphones, tablets and desktop computers.</p>
+                    </article>
+
+                    <!-- Card 4 -->
+                    <article class="benefit-card">
+                        <div class="card-icon-container">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="benefit-svg-icon" aria-hidden="true">
+                                <rect x="2" y="5" width="20" height="14" rx="2"/>
+                                <line x1="2" y1="10" x2="22" y2="10"/>
+                                <line x1="6" y1="15" x2="10" y2="15"/>
+                            </svg>
+                        </div>
+                        <h3>Easy Ways to Access</h3>
+                        <p>Experience a simple subscription demonstration supporting EcoCash, Visa and Mastercard before entering the catalogue.</p>
+                    </article>
+                </div>
+
+                <!-- Call to Action Block -->
+                <div class="benefits-cta-block text-center">
+                    <h3 class="cta-title">Ready to discover something new?</h3>
+                    <p class="cta-subtitle">Explore StreamWave and experience Zimbabwean entertainment in one convenient destination.</p>
+                    <a href="/checkout" class="btn btn-primary btn-cta-benefits" id="benefits-cta-btn">Explore the Catalogue</a>
+                    <p class="academic-discreet-note">Academic prototype: payment and subscription features are simulated, and no real financial transaction is processed.</p>
                 </div>
             </div>
         </section>
@@ -161,6 +210,11 @@
                         if (btn) {
                             btn.textContent = 'Go to Library';
                             btn.href = '/library';
+                        }
+                        const ctaBtn = document.getElementById('benefits-cta-btn');
+                        if (ctaBtn) {
+                            ctaBtn.textContent = 'Go to Member Library';
+                            ctaBtn.href = '/library';
                         }
                     }
                 }
