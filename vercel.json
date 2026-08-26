@@ -1,32 +1,26 @@
 {
-  "rewrites": [
+  "builds": [
     {
-      "source": "/checkout",
-      "destination": "/checkout.html"
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
     },
     {
-      "source": "/library",
-      "destination": "/library.html"
+      "src": "/checkout",
+      "dest": "/checkout.html"
     },
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "src": "/library",
+      "dest": "/library.html"
     },
     {
-      "source": "/(demo-payment|session|media|play-events|health)(.*)",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/docs",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/redoc",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/openapi.json",
-      "destination": "/api/index.py"
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }

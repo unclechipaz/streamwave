@@ -267,23 +267,34 @@ async def add_security_headers(request: Request, call_next):
 # Path Normalization Middleware for Vercel Serverless Function Routing
 @app.middleware("http")
 async def normalize_api_path(request: Request, call_next):
-    raw_path = request.url.path
-    if "demo-payment" in raw_path:
+    path_sources = [
+        request.headers.get("x-matched-path", ""),
+        request.headers.get("x-forwarded-uri", ""),
+        request.headers.get("x-vercel-forwarded-for", ""),
+        str(request.url.path),
+        request.scope.get("path", "")
+    ]
+    full_target_str = " ".join(path_sources)
+
+    if "demo-payment" in full_target_str:
         request.scope["path"] = "/api/demo-payment"
-    elif "play-events" in raw_path:
+    elif "play-events" in full_target_str:
         request.scope["path"] = "/api/play-events"
-    elif "reset-demo" in raw_path:
+    elif "reset-demo" in full_target_str:
         request.scope["path"] = "/api/reset-demo"
-    elif "logout" in raw_path:
+    elif "logout" in full_target_str:
         request.scope["path"] = "/api/logout"
-    elif "session" in raw_path:
+    elif "session" in full_target_str:
         request.scope["path"] = "/api/session"
-    elif "health" in raw_path:
+    elif "health" in full_target_str:
         request.scope["path"] = "/api/health"
-    elif "media/" in raw_path:
-        media_id = raw_path.split("media/")[-1]
-        request.scope["path"] = f"/api/media/{media_id}"
-    elif "media" in raw_path and not raw_path.endswith(".png") and not raw_path.endswith(".mp4") and not raw_path.endswith(".wav"):
+    elif "media/" in full_target_str:
+        try:
+            media_id = full_target_str.split("media/")[-1].split()[0].split("?")[0]
+            request.scope["path"] = f"/api/media/{media_id}"
+        except Exception:
+            request.scope["path"] = "/api/media"
+    elif "media" in full_target_str and not any(full_target_str.endswith(ext) for ext in [".png", ".mp4", ".wav", ".css", ".js"]):
         request.scope["path"] = "/api/media"
     
     response = await call_next(request)
