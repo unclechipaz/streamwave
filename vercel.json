@@ -13,6 +13,10 @@
       "destination": "/api/index.py"
     },
     {
+      "source": "/(demo-payment|session|media|play-events|health)(.*)",
+      "destination": "/api/index.py"
+    },
+    {
       "source": "/docs",
       "destination": "/api/index.py"
     },

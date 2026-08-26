@@ -75,11 +75,14 @@
     }
 
     /**
-     * Checks member authorization with GET /api/session
+     * Checks member authorization with GET /api/session (with /session fallback)
      */
     async function checkMemberSession() {
         try {
-            const res = await fetch('/api/session');
+            let res = await fetch('/api/session');
+            if (res.status === 404) {
+                res = await fetch('/session');
+            }
             if (res.ok) {
                 const data = await res.json();
                 if (data.authenticated) {
@@ -104,7 +107,10 @@
      */
     async function signOut() {
         try {
-            await fetch('/api/logout', { method: 'POST' });
+            let res = await fetch('/api/logout', { method: 'POST' });
+            if (res.status === 404) {
+                await fetch('/logout', { method: 'POST' });
+            }
         } catch (e) {
             console.error('Logout error:', e);
         }
@@ -116,7 +122,10 @@
      */
     async function resetDemoSession() {
         try {
-            await fetch('/api/reset-demo', { method: 'POST' });
+            let res = await fetch('/api/reset-demo', { method: 'POST' });
+            if (res.status === 404) {
+                await fetch('/reset-demo', { method: 'POST' });
+            }
         } catch (e) {
             console.error('Reset demo error:', e);
         }
@@ -275,7 +284,7 @@
     }
 
     /**
-     * Fetches media items from protected FastAPI backend /api/media endpoint
+     * Fetches media items from protected FastAPI backend /api/media endpoint (with /media fallback)
      */
     async function fetchMedia() {
         showView('loading');
@@ -286,8 +295,14 @@
             if (state.activeType) params.append('type', state.activeType);
             if (state.activeGenre) params.append('genre', state.activeGenre);
 
-            const url = `/api/media${params.toString() ? '?' + params.toString() : ''}`;
-            const response = await fetch(url);
+            const queryString = params.toString() ? '?' + params.toString() : '';
+            let url = `/api/media${queryString}`;
+            let response = await fetch(url);
+
+            if (response.status === 404) {
+                url = `/media${queryString}`;
+                response = await fetch(url);
+            }
 
             if (response.status === 401) {
                 // Session expired or unauthorized
@@ -479,11 +494,14 @@
     }
 
     /**
-     * Fetches a single media item by ID
+     * Fetches a single media item by ID with fallback
      */
     async function fetchSingleItem(id) {
         try {
-            const res = await fetch(`/api/media/${id}`);
+            let res = await fetch(`/api/media/${id}`);
+            if (res.status === 404) {
+                res = await fetch(`/media/${id}`);
+            }
             if (res.ok) return await res.json();
         } catch (e) {
             console.error('Error fetching item detail:', e);
@@ -492,7 +510,7 @@
     }
 
     /**
-     * Sends playback event log to POST /api/play-events
+     * Sends playback event log to POST /api/play-events (with /play-events fallback)
      */
     async function logPlayEvent(mediaId) {
         updateEventBadge('Logging...', true);
@@ -503,13 +521,19 @@
                 client_timestamp: new Date().toISOString()
             };
 
-            const res = await fetch('/api/play-events', {
+            let res = await fetch('/api/play-events', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
+
+            if (res.status === 404) {
+                res = await fetch('/play-events', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            }
 
             if (res.ok) {
                 const data = await res.json();

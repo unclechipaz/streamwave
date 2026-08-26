@@ -255,7 +255,7 @@
 
             // Submit ONLY method, plan_id, and optional simulate_decline payload to FastAPI backend
             try {
-                const res = await fetch('/api/demo-payment', {
+                let res = await fetch('/api/demo-payment', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -265,6 +265,20 @@
                         simulate_decline: shouldSimulateDecline
                     })
                 });
+
+                // Fallback for Vercel serverless function route aliases
+                if (res.status === 404) {
+                    res = await fetch('/demo-payment', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: email,
+                            method: selectedMethodName,
+                            plan_id: 'streamwave-monthly',
+                            simulate_decline: shouldSimulateDecline
+                        })
+                    });
+                }
 
                 if (res.ok) {
                     const data = await res.json();
