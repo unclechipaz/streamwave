@@ -1319,7 +1319,7 @@ button, input, select {
 .app-footer {
     background-color: var(--bg-surface);
     border-top: 1px solid var(--border-color);
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
     margin-top: auto;
 }
 
@@ -1328,13 +1328,82 @@ button, input, select {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1.25rem;
+}
+
+.footer-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .footer-brand {
     font-weight: 700;
     font-size: 0.9rem;
     color: var(--text-primary);
+}
+
+.footer-module-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.module-code-badge {
+    background-color: var(--accent-red-subtle);
+    color: var(--accent-red);
+    border: 1px solid rgba(229, 9, 20, 0.4);
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+}
+
+.footer-members-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    align-items: center;
+}
+
+.member-chip {
+    background-color: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.85rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.825rem;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: border-color 0.15s ease;
+}
+
+.member-chip:hover {
+    border-color: rgba(229, 9, 20, 0.4);
+}
+
+.member-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.member-reg {
+    color: var(--text-muted);
+    font-family: monospace;
+    font-size: 0.775rem;
+    background-color: var(--bg-surface);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
 }
 
 .footer-disclaimer {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamWave Member Library | Catalogue & Player</title>
+    <title>StreamWave Member Library | Zimbabwean Movies & Music</title>
     
     <!-- Favicon Links -->
     <link rel="icon" type="image/png" href="/images/favicon.png">
@@ -13,106 +13,99 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body class="library-body">
-    <!-- Header Navigation Bar -->
+    <!-- Header Navbar -->
     <header class="navbar">
         <div class="nav-container">
-            <a href="/library" class="brand" aria-label="StreamWave Entertainment Home">
+            <a href="/" class="brand" aria-label="StreamWave Entertainment Home">
                 <img src="/images/streamwave-logo.png" alt="StreamWave Entertainment Logo" class="brand-logo-img">
             </a>
 
             <nav class="nav-links" aria-label="Primary Navigation">
-                <a href="#featured" class="nav-link active">Home</a>
-                <a href="#catalogue" class="nav-link">Catalogue</a>
                 <a href="/docs" target="_blank" rel="noopener" class="nav-link developer-link" title="Open API Documentation">
                     Developer API <span class="ext-icon" aria-hidden="true">↗</span>
                 </a>
-            </nav>
-
-            <!-- Member Session Status & Sign Out Controls -->
-            <div class="member-nav-controls">
-                <div class="member-badge" id="member-badge-display">
-                    <span class="pulse-dot" aria-hidden="true"></span>
-                    <span id="member-email-text">Demo Member</span>
+                
+                <div class="member-nav-controls">
+                    <div class="member-badge" title="Active Paid Member Session">
+                        <span class="pulse-dot" aria-hidden="true"></span>
+                        <span id="member-email-text">Demo Member</span>
+                    </div>
+                    <button onclick="window.streamWaveApp.signOut()" class="btn btn-secondary btn-sm">Sign Out</button>
+                    <button onclick="window.streamWaveApp.resetDemoSession()" class="btn btn-secondary btn-sm" title="Reset Demo Session State">Reset Demo</button>
                 </div>
-                <button class="btn btn-secondary btn-sm" onclick="window.streamWaveApp.resetDemoSession()" title="Reset demonstration session for assessment">
-                    Reset Demo
-                </button>
-                <button class="btn btn-primary btn-sm" onclick="window.streamWaveApp.signOut()">
-                    Sign Out
-                </button>
-            </div>
+            </nav>
         </div>
     </header>
 
+    <!-- Main Content Area -->
     <main class="main-content">
-        <!-- Hero / Featured Content Section -->
-        <section id="featured" class="hero-section" aria-label="Featured Media Release">
-            <div class="hero-backdrop"></div>
+        <!-- Featured Banner / Hero Section -->
+        <section class="hero-section" aria-label="Featured Media Selection">
             <div class="hero-content">
                 <div class="hero-tag-group">
-                    <span class="hero-tag">FEATURED ZIMBABWEAN RELEASE</span>
-                    <span class="tech-sample-pill">5-second technical preview</span>
+                    <span class="hero-tag">FEATURED ZIMBABWEAN MOVIE</span>
+                    <span class="tech-sample-pill">5-sec MP4 preview</span>
                 </div>
-                <h1 class="hero-title" title="Cook Off (2017)">Cook Off</h1>
-                <p class="hero-meta">
-                    <span class="meta-tag">Movie</span>
+                <h1 class="hero-title">Cook Off</h1>
+                <div class="hero-meta">
+                    <span class="meta-tag">MOVIE</span>
                     <span class="meta-separator">•</span>
                     <span>2017</span>
                     <span class="meta-separator">•</span>
                     <span>Comedy / Romance</span>
                     <span class="meta-separator">•</span>
                     <span>1h 41m</span>
-                </p>
+                </div>
                 <p class="hero-description">
-                    An uplifting Zimbabwean romantic comedy following Anesu, a single mother in Harare who enters a high-stakes national cooking competition against all odds.
+                    An enthusiastic single mother gets entered into a top reality television cooking show by her son and grandmother, challenging professional chefs against all odds.
                 </p>
                 <div class="hero-actions">
-                    <button class="btn btn-primary" onclick="window.streamWaveApp.playMoviePreview('1', this)">
-                        <span class="btn-icon" aria-hidden="true">▶</span> Watch
+                    <button class="btn btn-primary" onclick="window.streamWaveApp.playMoviePreview('1', this)" aria-label="Watch Cook Off 5-second video preview">
+                        ▶ Watch 5-Sec Preview
                     </button>
-                    <button class="btn btn-secondary" onclick="window.streamWaveApp.openDetails('1', this)">
-                        <span class="btn-icon" aria-hidden="true">ℹ</span> View Details
+                    <button class="btn btn-secondary" onclick="window.streamWaveApp.openDetails('1', this)" aria-label="View Cook Off details">
+                        ℹ More Info
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Catalogue Filter & Search Section -->
-        <section id="catalogue" class="catalogue-section" aria-label="Media Catalogue">
+        <!-- Media Catalogue Section -->
+        <section class="catalogue-section" aria-label="Media Catalogue">
             <div class="section-header">
-                <h2 class="section-title">Media Catalogue</h2>
+                <h2 class="section-title">Catalogue Library</h2>
                 <span class="item-count" id="item-count">Loading...</span>
             </div>
 
-            <!-- Controls Toolbar -->
-            <div class="toolbar" role="region" aria-label="Catalogue Search and Filtering Controls">
+            <!-- Toolbar Filters -->
+            <div class="toolbar">
                 <div class="search-box">
                     <span class="search-icon" aria-hidden="true">🔍</span>
-                    <input type="text" id="search-input" placeholder="Search title, artist, director, or genre..." aria-label="Search media catalogue">
-                    <button id="clear-search" class="clear-btn" aria-label="Clear search query" style="display: none;">✕</button>
+                    <input type="text" id="search-input" placeholder="Search by title, artist, director, or genre..." aria-label="Search media catalogue">
+                    <button id="clear-search" class="clear-btn" style="display: none;" aria-label="Clear search">✕</button>
                 </div>
 
                 <div class="filter-group">
-                    <!-- Type Filter Tabs -->
                     <div class="type-tabs" role="tablist" aria-label="Filter media by type">
                         <button class="type-tab active" data-type="" role="tab" aria-selected="true">All</button>
                         <button class="type-tab" data-type="movie" role="tab" aria-selected="false">Movies</button>
                         <button class="type-tab" data-type="music" role="tab" aria-selected="false">Music</button>
                     </div>
 
-                    <!-- Genre Dropdown -->
                     <div class="select-wrapper">
-                        <select id="genre-select" aria-label="Filter media by genre">
+                        <label for="genre-select" class="sr-only">Filter by genre</label>
+                        <select id="genre-select" aria-label="Filter by genre">
                             <option value="">All Genres</option>
                             <option value="Comedy">Comedy</option>
                             <option value="Drama">Drama</option>
-                            <option value="Action">Action</option>
+                            <option value="Afrobeats">Afrobeats</option>
+                            <option value="Sungura">Sungura</option>
                             <option value="Zimdancehall">Zimdancehall</option>
-                            <option value="Afro-pop">Afro-pop</option>
-                            <option value="Traditional">Traditional</option>
+                            <option value="Gospel">Gospel</option>
+                            <option value="Chimurenga">Chimurenga</option>
                         </select>
                     </div>
                 </div>
@@ -148,12 +141,26 @@
         </section>
     </main>
 
-    <!-- Footer Statement -->
+    <!-- Footer Notice with Group Members & Module Details -->
     <footer class="app-footer">
         <div class="footer-container">
-            <div class="footer-brand">
-                <img src="/images/streamwave-logo.png" alt="StreamWave Entertainment Logo" class="footer-logo-img">
+            <div class="footer-top-row">
+                <div class="footer-brand">
+                    <img src="/images/streamwave-logo.png" alt="StreamWave Entertainment Logo" class="footer-logo-img">
+                </div>
+                <div class="footer-module-title">
+                    <span class="module-code-badge">INFO441</span> CLOUD COMPUTING Group Assignment
+                </div>
             </div>
+
+            <div class="footer-members-grid">
+                <div class="member-chip"><span class="member-name">Mark Matira</span> <span class="member-reg">R2311376A</span></div>
+                <div class="member-chip"><span class="member-name">Molivia Fihlabani</span> <span class="member-reg">R242170F</span></div>
+                <div class="member-chip"><span class="member-name">Munyenyiwa Zivanayi</span> <span class="member-reg">R2215664H</span></div>
+                <div class="member-chip"><span class="member-name">Yemurai Mhaka</span> <span class="member-reg">R1813118V</span></div>
+                <div class="member-chip"><span class="member-name">Brian Sonai</span> <span class="member-reg">R2216148H</span></div>
+            </div>
+
             <p class="footer-disclaimer">
                 <strong>Academic Serverless Prototype</strong> • Built with Python 3.12, FastAPI, and Vercel Serverless Functions.
                 Movie previews use an original 5-second StreamWave MP4 video. Audio playback relies on an original synthesized demonstration chime. No copyrighted commercial files are hosted or transmitted.
@@ -178,15 +185,15 @@
             <div class="video-modal-header">
                 <div class="video-header-top">
                     <span class="meta-tag">Movie Preview</span>
-                    <span class="tech-sample-pill">5-second technical preview</span>
+                    <h2 id="video-modal-title" class="video-modal-title">StreamWave Video Player</h2>
                 </div>
-                <h2 id="video-modal-title" class="video-modal-title">Movie Title</h2>
             </div>
-            
+
+            <!-- HTML5 Video Container -->
             <div class="video-wrapper">
-                <video id="html5-video" controls playsinline preload="metadata">
-                    <source id="video-source" src="/media/streamwave-preview.mp4" type="video/mp4">
-                    Your browser does not support HTML5 video playback.
+                <video id="html5-video" controls preload="metadata" aria-label="StreamWave 5-Second Movie Preview Video Player">
+                    <source id="video-source" src="" type="video/mp4">
+                    Your browser does not support HTML5 MP4 video playback.
                 </video>
             </div>
 
